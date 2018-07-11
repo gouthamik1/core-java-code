@@ -1,7 +1,6 @@
 package com.kammari;
 
-import java.util.Scanner;
-
+import java.util.Arrays;
 public class JavaProgramTest {
 
     public static void main(String args[]) {
@@ -10,26 +9,32 @@ public class JavaProgramTest {
         int fibonacci_result = test_obj.fibonacciUsingRecursion(5);
         System.out.println("fibonacci series from 1 to 5 is " + fibonacci_result);
 
-        test_obj.fibonacci();
+        test_obj.fibonacciPrintSeries();
 
         int factorial_result = test_obj.factorialUsingRecursion(7);
         System.out.println("The factorial O(using recursion) of 7 is : " + factorial_result);
 
-        test_obj.factorial();
+        test_obj.factorial(7);
 
         test_obj.printPrimeNumbers();
 
-        test_obj.numberReverse();
+        test_obj.isPrimeNumber(67);
+
+        test_obj.reverseNumber(36755);
 
         test_obj.printTraingle();
 
         String palindrome_word = "madam";
         char[] palindrome_word_array = palindrome_word.toCharArray();
-        System.out.println(isPalindrome(palindrome_word_array));
+        System.out.println(isPalindrome(palindrome_word_array) + " " + palindrome_word + " is a palindrome" );
 
         test_obj.sumOfArray();
 
-        test_obj.sumOfSquares();
+        test_obj.sumOfSquares(5);
+
+        test_obj.sumOfMthPowers(5,2);
+
+        test_obj.sort();
     }
 
     public int fibonacciUsingRecursion(int num){
@@ -45,12 +50,17 @@ public class JavaProgramTest {
         result = fibonacciUsingRecursion(num-1) + factorialUsingRecursion(num-2);
         return result;
     }
-    public void fibonacci(){
+    public void fibonacciPrintSeries(){
         int f1 = 0;
         int f2 = 1;
         int sum = 0;
-        System.out.println("fibonacci series from 1 to 21 are : ");
-        while (sum <= 21)
+//        int n=0;
+//        System.out.println("Enter a number upto which fibonacci series to print : ");
+//        Scanner scan = new Scanner(System.in);
+//        n = scan.nextInt();
+        int n = 10;
+        System.out.println("fibonacci series upto " + n + " numbers : " );
+        while (sum <= n)
         {
             System.out.println( sum + " " );
             sum = f1 +f2;
@@ -72,13 +82,9 @@ public class JavaProgramTest {
 
     }
 
-    public void factorial(){
+    public void factorial(int num){
 
-        System.out.println("Enter a number");
-        Scanner scan = new Scanner(System.in);
-        int num =0;
         int result = 1 ;
-        num = scan.nextInt();
 
         for (int i=num; i >= 1; i--)
         {
@@ -95,40 +101,56 @@ public class JavaProgramTest {
         System.out.print("Prime numbers from 1 to 100 are : ");
         for(int i=3;i<=n;i++) // 1.So we are starting with initialization i = 3. 2 is not prime.
         {
-            int flag = 1;
+            Boolean flag = true;
             for(int j=2;j<=i/2;j++)  // 2.Try dividing the number by half check whether it divisible
             {
                 if(i%j==0) // 3. If the number is divisible by other number ->Not a prime Number
                 {
-                    flag = 0;
+                    flag = false;
                     break;
                 }
 
             }
-            if(flag==1) // 4. If the number is not divisible by any other numbers but only by itself and 1 -> prime no
+            if(flag) // 4. If the number is not divisible by any other numbers but only by itself and 1 -> prime no
             {
                 System.out.print(i+" ");
             }
         }
     }
 
-    public void numberReverse(){
-        int num=0;
-        int reversenum =0;
-        System.out.println("Input your number and press enter: ");
-        //capture the user input
-        Scanner in = new Scanner(System.in);
-        //Captured input would be stored in number num
-        num = in.nextInt();
+    public void isPrimeNumber(int num){
+        int count = 0;
+        if (num == 0 || num == 1 || num == 2){
+            System.out.println(num + " is not a prime number");
+        }
+        for (int i=2; i<num ;i++)
+        {
+            if(num%i == 0){
+               count ++;
+               break;
+            }
+        }
+        if(count == 0){
+            System.out.println("\n" + num + " is a prime number");
+        }
+        else{
+            System.out.println(num + " is not a prime number");
+        }
+
+    }
+
+    public void reverseNumber(int num){
+        int reverseNum =0;
+        int n = num;
         //While Loop: Logic to find out the reverse number
         while( num != 0 )
         {
-            reversenum = reversenum * 10;
-            reversenum = reversenum + num%10;
+            reverseNum = reverseNum * 10;
+            reverseNum = reverseNum + num%10;
             num = num/10;
         }
 
-        System.out.println("Reverse of input number is: "+reversenum);
+        System.out.println("Reverse of " + n + " is: " + reverseNum);
     }
 
     public void printTraingle(){
@@ -156,33 +178,71 @@ public class JavaProgramTest {
     }
 
     public void sumOfArray(){
-        int[] array = {10, 20, 30, 40, 50, 10};
+        int[] array = {10, 20, 30, 40, 50, 80};
         int sum = 0;
         //Advanced for loop
         for( int num : array) {
             sum = sum+num;
         }
-        System.out.println("Sum of array elements is:"+sum);
+
+        System.out.println( Arrays.toString(array) + " Sum of array elements is: "+sum);
     }
 
-    public void sumOfSquares(){
+    public void sumOfSquares(int n){
         int sum = 0;
-        for(int i=5;i>=1;i--)
+        for(int i=1;i <= n;i++)
         {
-            if(i%2 != 0)
+            sum += (i*i);
+        }
+        System.out.println("Sum of squares for n = " + n + " is: " + sum);
+    }
+
+    public void productOfNnumbers(int n) {
+        //for n = 3 : 1*2*3 = 6 etc.
+        int res=1;
+        for (int i = 1; i<=n ;i++)
+            res *= i;
+    }
+    public void sumOfMthPowers(int n, int m){
+        int sum = 0;
+        int power;
+        for(int i=1;i <= n;i++)
+        {
+            power = 1;
+            for(int j=1; j <= m; j++ )
             {
-                if(sum < (i*i))
+              power *= i;
+            }
+            sum += power;
+
+        }
+        System.out.println("Sum of " + m +"th powers for n = " + n + " is: " + sum);
+    }
+
+    public void sort(){
+        int n, temp;
+        int[] a = {1,8,10,2,67,90,23,11,90,-1,-23, 444444};
+        n = a.length;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (a[i] > a[j])
                 {
-                    sum = (i*i)-sum;
-                }else {
-                    sum = sum -(i*i);
+                    temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
                 }
-            }else{
-                sum = sum + (i*i);
             }
         }
-        System.out.println(sum);
+        System.out.print("Ascending Order: ");
+        for (int i = 0; i < n - 1; i++)
+        {
+            System.out.print(a[i] + ",");
+        }
+        System.out.print(a[n - 1]);
     }
+
 
 
 }
